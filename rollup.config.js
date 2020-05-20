@@ -12,6 +12,10 @@ export default [
       file: pkg.main,
       name: 'ChartGraphsDagre',
       format: 'umd',
+      globals: {
+        'chart.js': 'Chart',
+        'chartjs-chart-graph': 'ChartGraphs',
+      },
     },
     external: Object.keys(pkg.peerDependencies || {}),
     plugins: [commonjs(), pnp(), resolve(), babel({ babelHelpers: 'runtime' })],

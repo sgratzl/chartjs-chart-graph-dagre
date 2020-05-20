@@ -1,21 +1,22 @@
 import { Chart, merge, patchControllerConfig, registerController } from '../chart';
 import { GraphController } from 'chartjs-chart-graph';
+import { graphlib, layout } from 'dagre';
 
 export class DagreGraphController extends GraphController {
   resyncLayout() {
     const meta = this._cachedMeta;
 
-    // meta.root = hierarchy(this.getTreeRoot(), (d) => this.getDagreGraphChildren(d))
-    //   .count()
-    //   .sort((a, b) => b.height - a.height || b.data.index - a.data.index);
+    const g = new graphlib.Graph();
+    meta._graph = g;
+    g.setGraph({});
 
-    // this.doLayout(meta.root);
+    this.doLayout(meta._graph);
 
     super.resyncLayout();
   }
 
   reLayout() {
-    this.doLayout(this._cachedMeta.root);
+    this.doLayout(this._cachedMeta._graph);
   }
 
   doLayout(root) {
@@ -51,7 +52,7 @@ export class DagreGraphController extends GraphController {
   }
 }
 
-DagreGraphController.id = 'dendogram';
+DagreGraphController.id = 'dagre';
 DagreGraphController.register = () => {
   GraphController.register();
   DagreGraphController.defaults = merge({}, [

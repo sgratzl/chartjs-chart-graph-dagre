@@ -2,7 +2,7 @@ import ChartNS from 'chart.js';
 
 export const Chart = ChartNS;
 // export const plugins = ChartNS.plugins;
-export const defaults = ChartNS.defaults;
+// export const defaults = ChartNS.defaults;
 
 // export const Scale = ChartNS.Scale;
 // export const LinearScale = ChartNS.scaleService.getScaleConstructor('linear');
