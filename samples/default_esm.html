@@ -15,35 +15,31 @@
           "chartjs-chart-graph": "https://unpkg.com/chartjs-chart-graph@3.0.0-alpha.3?module",
           "d3-force": "https://unpkg.com/d3-force?module",
           "d3-hierarchy": "https://unpkg.com/d3-hierarchy?module",
-          "chartjs-chart-graph-dagre": "../build/Chart.Graphs.DotParser.esm.jss",
+          "chartjs-chart-graph-dagre": "../build/Chart.Graphs.Dagre.esm.jss",
         }
       }
     </script>
     <script type="module-shim">
-      import { ForceDirectedGraphChart } from 'chartjs-chart-graph';
-      import { parse } from 'chartjs-chart-graph-dagre';
+      import { DagreGraphChart } from 'chartjs-chart-graph-dagre';
 
-      fetch(`./data/simple.dot`)
-        .then((r) => r.text())
-        .then((data) => {
-          new Chart(document.getElementById('canvas').getContext('2d'), {
-            type: 'forceDirectedGraph',
-            data: parse(data),
-            options: {
-              elements: {
-                point: {
-                  radius: 10,
-                  hoverRadius: 12,
-                },
-                line: {
-                  borderColor: 'black',
-                },
+        new DagreGraphChart(document.getElementById('canvas').getContext('2d'), {
+          data: {
+            // TODO
+          },
+          options: {
+            elements: {
+              point: {
+                radius: 10,
+                hoverRadius: 12,
               },
-              legend: {
-                display: true,
+              line: {
+                borderColor: 'black',
               },
             },
-          });
+            legend: {
+              display: true,
+            },
+          },
         });
     </script>
   </body>

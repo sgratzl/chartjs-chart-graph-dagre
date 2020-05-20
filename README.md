@@ -2,7 +2,7 @@
 
 [![NPM Package][npm-image]][npm-url] [![Github Actions][github-actions-image]][github-actions-url]
 
-Helper package for [chartjs-chart-graph](https://github.com/sgratzl/chartjs-chart-graph) for
+Adds another graph controller `dagre` to chart.js based on [chartjs-chart-graph](https://github.com/sgratzl/chartjs-chart-graph) which uses the [Dagre](https://github.com/dagrejs/dagre) library for performing the graph layout.
 
 ## Install
 
@@ -13,6 +13,29 @@ npm install --save chart.js@next chartjs-chart-graph@next chartjs-chart-graph-da
 ## Usage
 
 see [Samples](https://github.com/sgratzl/chartjs-chart-graph-dagre/tree/master/samples) on Github
+
+## Options
+
+The options are wrapper for specifying dagre graph, node, and edge options. see https://github.com/dagrejs/dagre/wiki#configuring-the-layout.
+
+```ts
+interface IDagreOptions {
+  dagre: {
+    /**
+     * dagre graph options
+     */
+    graph: {};
+    /**
+     * dagre node options or a function generating the option per node
+     */
+    node: ((i: number) => {}) | {};
+    /**
+     * dagre edge options or a function generating the option per edge
+     */
+    edge: ((source: number, target: number) => {}) | {};
+  };
+}
+```
 
 ## Development Environment
 

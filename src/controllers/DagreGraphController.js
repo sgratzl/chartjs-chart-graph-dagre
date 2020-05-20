@@ -4,13 +4,7 @@ import { graphlib, layout } from 'dagre';
 
 export class DagreGraphController extends GraphController {
   resyncLayout() {
-    const meta = this._cachedMeta;
-
-    const g = new graphlib.Graph();
-    meta._graph = g;
-    g.setGraph({});
-
-    this.doLayout(meta._graph);
+    this.doLayout();
 
     super.resyncLayout();
   }
@@ -19,36 +13,40 @@ export class DagreGraphController extends GraphController {
     this.doLayout(this._cachedMeta._graph);
   }
 
-  doLayout(root) {
+  doLayout() {
     const options = this._config.dagre;
 
-    // const layout = options.mode === 'tree' ? tree() : cluster();
+    const g = new graphlib.Graph();
+    g.setGraph(options.graph);
 
-    // if (options.orientation === 'radial') {
-    //   layout.size([Math.PI * 2, 1]);
-    // } else {
-    //   layout.size([2, 2]);
-    // }
+    const meta = this._cachedMeta;
+    const nodes = meta._parsed;
+    const edges = meta._parsedEdges;
+    nodes.forEach((_, i) => {
+      g.setNode(i.toString(), typeof options.node === 'function' ? options.node(i) : Object.assign({}, options.node));
+    });
+    edges.forEach((edge) => {
+      g.setEdge(
+        edge.source.toString(),
+        edge.target.toString(),
+        typeof options.edge === 'function' ? options.edge(edge.source, edge.target) : Object.assign({}, options.edge)
+      );
+    });
 
-    // const orientation = {
-    //   horizontal: (d) => {
-    //     d.data.x = d.y - 1;
-    //     d.data.y = -d.x + 1;
-    //   },
-    //   vertical: (d) => {
-    //     d.data.x = d.x - 1;
-    //     d.data.y = -d.y + 1;
-    //   },
-    //   radial: (d) => {
-    //     d.data.x = Math.cos(d.x) * d.y;
-    //     d.data.y = Math.sin(d.x) * d.y;
-    //     d.data.angle = d.y === 0 ? Number.NaN : d.x;
-    //   },
-    // };
+    layout(g, options);
 
-    // layout(root).each(orientation[options.orientation] || orientation.horizontal);
+    g.nodes().forEach((n, i) => {
+      const attrs = g.node(n);
+      nodes[i].x = attrs.x;
+      nodes[i].y = attrs.y;
+    });
+    // g.edges().forEach((e, i) => {
+    //   const attrs = g.edge(e);
+    //   edges[i].x = attrs.x;
+    //   edges[i].y = attrs.y;
+    // });
 
-    // requestAnimationFrame(() => this.chart.update());
+    requestAnimationFrame(() => this.chart.update());
   }
 }
 
@@ -61,6 +59,9 @@ DagreGraphController.register = () => {
       datasets: {
         dagre: {
           // TODO
+          graph: {},
+          node: {},
+          edge: {},
         },
         animations: {
           numbers: {
@@ -68,18 +69,17 @@ DagreGraphController.register = () => {
             properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
           },
         },
-        tension: 0.4,
       },
-      scales: {
-        x: {
-          min: -1,
-          max: 1,
-        },
-        y: {
-          min: -1,
-          max: 1,
-        },
-      },
+      // scales: {
+      //   x: {
+      //     min: -1,
+      //     max: 1,
+      //   },
+      //   y: {
+      //     min: -1,
+      //     max: 1,
+      //   },
+      // },
     },
   ]);
   return registerController(DagreGraphController);
