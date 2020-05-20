@@ -1,6 +1,6 @@
 {
   "name": "chartjs-chart-graph-dagre",
-  "description": "Graphviz DOT parser utility for chartjs-chart-graph",
+  "description": "Chart.js graph chart extension using the dagre layout",
   "version": "1.0.0",
   "author": {
     "name": "Samuel Gratzl",
