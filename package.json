@@ -21,13 +21,11 @@
     "src/**/*.js"
   ],
   "peerDependencies": {
-    "chartjs-chart-graph": "^3.0.0-alpha.3",
-    "chart.js": "^3.0.0-alpha"
+    "chart.js": "^3.0.0-alpha",
+    "chartjs-chart-graph": "^3.0.0-alpha.3"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.6",
-    "@types/dagre": "^0.7.44",
-    "@types/graphlib": "^2.1.6",
     "dagre": "^0.8.5",
     "graphlib": "^2.1.8"
   },

@@ -4,6 +4,8 @@
 
 Adds another graph controller `dagre` to chart.js based on [chartjs-chart-graph](https://github.com/sgratzl/chartjs-chart-graph) which uses the [Dagre](https://github.com/dagrejs/dagre) library for performing the graph layout.
 
+**Works only with Chart.js >= 3.0.0**
+
 ## Install
 
 ```bash
@@ -35,6 +37,36 @@ interface IDagreOptions {
     edge: ((source: number, target: number) => {}) | {};
   };
 }
+```
+
+### ESM and Tree Shaking
+
+The ESM build of the library supports tree shaking thus having no side effects. As a consequence the chart.js library won't be automatically manipulated nor new controllers automatically registered. One has to manually import and register them.
+
+Variant A:
+
+```js
+import Chart from 'chart.js';
+import { DagreGraphController } from 'chartjs-chart-graph-dagre';
+
+// register controller in chart.js and ensure the defaults are set
+DagreGraphController.register();
+...
+
+new Chart(ctx, {
+  type: DagreGraphController.id,
+  data: [...],
+});
+```
+
+Variant B:
+
+```js
+import { DagreGraphChart } from 'chartjs-chart-graph-dagre';
+
+new DagreGraphChart(ctx, {
+  data: [...],
+});
 ```
 
 ## Development Environment

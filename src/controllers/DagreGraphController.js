@@ -1,6 +1,7 @@
 import { Chart, merge, patchControllerConfig, registerController } from '../chart';
 import { GraphController } from 'chartjs-chart-graph';
-import { graphlib, layout } from 'dagre';
+import Graph from 'graphlib/lib/graph';
+import layout from 'dagre/lib/layout';
 
 export class DagreGraphController extends GraphController {
   resyncLayout() {
@@ -16,7 +17,7 @@ export class DagreGraphController extends GraphController {
   doLayout() {
     const options = this._config.dagre;
 
-    const g = new graphlib.Graph();
+    const g = new Graph();
     g.setGraph(options.graph);
 
     const meta = this._cachedMeta;

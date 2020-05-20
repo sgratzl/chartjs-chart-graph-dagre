@@ -26,7 +26,10 @@ export default [
       file: pkg.module,
       format: 'esm',
     },
-    external: Object.keys(pkg.peerDependencies || {}).concat(Object.keys(pkg.dependencies || {})),
+    external: Object.keys(pkg.peerDependencies || {}).concat(Object.keys(pkg.dependencies || {}), [
+      'graphlib/lib/graph',
+      'dagre/lib/layout',
+    ]),
     plugins: [commonjs(), pnp(), resolve()],
   },
 ];
