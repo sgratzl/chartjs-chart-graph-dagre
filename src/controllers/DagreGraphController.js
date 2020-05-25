@@ -1,4 +1,4 @@
-import { Chart, merge, patchControllerConfig, registerController } from '../chart';
+import { Chart, merge, patchControllerConfig, registerController, requestAnimFrame } from '../chart';
 import { GraphController } from 'chartjs-chart-graph';
 import Graph from 'graphlib/lib/graph';
 import layout from 'dagre/lib/layout';
@@ -11,7 +11,7 @@ export class DagreGraphController extends GraphController {
   }
 
   reLayout() {
-    this.doLayout(this._cachedMeta._graph);
+    this.doLayout();
   }
 
   doLayout() {
@@ -41,48 +41,46 @@ export class DagreGraphController extends GraphController {
       nodes[i].x = attrs.x;
       nodes[i].y = attrs.y;
     });
-    // g.edges().forEach((e, i) => {
-    //   const attrs = g.edge(e);
-    //   edges[i].x = attrs.x;
-    //   edges[i].y = attrs.y;
-    // });
+    g.edges().forEach((e, i) => {
+      const attrs = g.edge(e);
+      edges[i].points = attrs.points.slice(1, -2);
+    });
 
-    requestAnimationFrame(() => this.chart.update());
+    requestAnimFrame(() => this.chart.update());
   }
 }
 
 DagreGraphController.id = 'dagre';
-DagreGraphController.register = () => {
-  GraphController.register();
-  DagreGraphController.defaults = merge({}, [
-    GraphController.defaults,
-    {
-      datasets: {
-        dagre: {
-          // TODO
-          graph: {},
-          node: {},
-          edge: {},
-        },
-        animations: {
-          numbers: {
-            type: 'number',
-            properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
-          },
+DagreGraphController.defaults = /*#__PURE__*/ merge({}, [
+  GraphController.defaults,
+  {
+    datasets: {
+      dagre: {
+        graph: {},
+        node: {},
+        edge: {},
+      },
+      animations: {
+        numbers: {
+          type: 'number',
+          properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
         },
       },
-      // scales: {
-      //   x: {
-      //     min: -1,
-      //     max: 1,
-      //   },
-      //   y: {
-      //     min: -1,
-      //     max: 1,
-      //   },
-      // },
     },
-  ]);
+    // scales: {
+    //   x: {
+    //     min: -1,
+    //     max: 1,
+    //   },
+    //   y: {
+    //     min: -1,
+    //     max: 1,
+    //   },
+    // },
+  },
+]);
+DagreGraphController.register = () => {
+  GraphController.register();
   return registerController(DagreGraphController);
 };
 
