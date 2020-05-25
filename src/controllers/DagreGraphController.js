@@ -43,7 +43,7 @@ export class DagreGraphController extends GraphController {
     });
     g.edges().forEach((e, i) => {
       const attrs = g.edge(e);
-      edges[i].points = attrs.points.slice(1, -2);
+      edges[i].points = attrs.points.slice(1, -1);
     });
 
     requestAnimFrame(() => this.chart.update());

@@ -2587,7 +2587,7 @@ __metadata:
     "@yarnpkg/pnpify": ^2.0.0-rc.22
     babel-jest: ^26.0.1
     chart.js: ^3.0.0-alpha
-    chartjs-chart-graph: ^3.0.0-alpha.3
+    chartjs-chart-graph: ^3.0.0-alpha.5
     dagre: ^0.8.5
     eslint: ^7.0.0
     eslint-config-prettier: ^6.11.0
@@ -2602,13 +2602,13 @@ __metadata:
     uglify-es: ^3.3.9
   peerDependencies:
     chart.js: ^3.0.0-alpha
-    chartjs-chart-graph: ^3.0.0-alpha.3
+    chartjs-chart-graph: ^3.0.0-alpha.5
   languageName: unknown
   linkType: soft
 
-"chartjs-chart-graph@npm:^3.0.0-alpha.3":
-  version: 3.0.0-alpha.3
-  resolution: "chartjs-chart-graph@npm:3.0.0-alpha.3"
+"chartjs-chart-graph@npm:^3.0.0-alpha.5":
+  version: 3.0.0-alpha.5
+  resolution: "chartjs-chart-graph@npm:3.0.0-alpha.5"
   dependencies:
     "@babel/runtime": ^7.9.6
     d3-force: ^2.0.1
@@ -2618,7 +2618,7 @@ __metadata:
   dependenciesMeta:
     chart.js:
       unplugged: true
-  checksum: 3/65ea1017363cdddf41d9bd2d87586c6e1287fdd285e6ef16730ab9484e0747e35f822eb9daa34e218bcf25cd15bd6d4086004b08033fc448b2e6e16a7168226f
+  checksum: 3/29a704dd25ce42715ce69b2bb8a3bf18d6b402e94a665345738b88373611a59c4fe898c60a42e1e50cb6e62a1be62d1269c0501384e1070d7c5db5946a2a7080
   languageName: node
   linkType: hard
 
