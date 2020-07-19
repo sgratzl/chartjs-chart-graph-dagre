@@ -36,7 +36,7 @@ describe('dagre', () => {
           },
         },
         legend: {
-          display: true,
+          display: false,
         },
       },
     });

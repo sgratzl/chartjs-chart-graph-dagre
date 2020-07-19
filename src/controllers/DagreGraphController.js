@@ -1,7 +1,8 @@
-import { Chart, merge, patchControllerConfig, registerController, requestAnimFrame } from '../chart';
-import { GraphController } from 'chartjs-chart-graph';
+import { Chart, merge, requestAnimFrame } from '@sgratzl/chartjs-esm-facade';
+import { GraphController, EdgeLine } from 'chartjs-chart-graph';
 import Graph from 'graphlib/lib/graph';
 import layout from 'dagre/lib/layout';
+import patchController from './patchController';
 
 export class DagreGraphController extends GraphController {
   resyncLayout() {
@@ -46,7 +47,7 @@ export class DagreGraphController extends GraphController {
       edges[i].points = attrs.points.slice(1, -1);
     });
 
-    requestAnimFrame(() => this.chart.update());
+    requestAnimFrame.call(window, () => this.chart.update());
   }
 }
 
@@ -79,14 +80,10 @@ DagreGraphController.defaults = /*#__PURE__*/ merge({}, [
     // },
   },
 ]);
-DagreGraphController.register = () => {
-  GraphController.register();
-  return registerController(DagreGraphController);
-};
 
 export class DagreGraphChart extends Chart {
   constructor(item, config) {
-    super(item, patchControllerConfig(config, DagreGraphController));
+    super(item, patchController(config, DagreGraphController, EdgeLine));
   }
 }
 DagreGraphChart.id = DagreGraphController.id;

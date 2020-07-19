@@ -9,7 +9,7 @@ Adds another graph controller `dagre` to chart.js based on [chartjs-chart-graph]
 ## Install
 
 ```bash
-npm install --save chart.js@next chartjs-chart-graph@next chartjs-chart-graph-dagre
+npm install --save chart.js@next @sgratzl/chartjs-esm-facade@next chartjs-chart-graph@next chartjs-chart-graph-dagre
 ```
 
 ## Usage
@@ -47,10 +47,11 @@ Variant A:
 
 ```js
 import Chart from 'chart.js';
+import { EdgeLine } from 'chartjs-chart-graph';
 import { DagreGraphController } from 'chartjs-chart-graph-dagre';
 
 // register controller in chart.js and ensure the defaults are set
-DagreGraphController.register();
+Chart.register(DagreGraphController, EdgeLine);
 ...
 
 new Chart(ctx, {
