@@ -1,4 +1,5 @@
-import { Chart, merge, requestAnimFrame } from '@sgratzl/chartjs-esm-facade';
+import { Chart } from 'chart.js';
+import { merge } from '../../chartjs-helpers/core';
 import { GraphController, EdgeLine } from 'chartjs-chart-graph';
 import Graph from 'graphlib/lib/graph';
 import layout from 'dagre/lib/layout';
@@ -47,39 +48,39 @@ export class DagreGraphController extends GraphController {
       edges[i].points = attrs.points.slice(1, -1);
     });
 
-    requestAnimFrame.call(window, () => this.chart.update());
+    requestAnimationFrame(() => this.chart.update());
   }
-}
 
-DagreGraphController.id = 'dagre';
-DagreGraphController.defaults = /*#__PURE__*/ merge({}, [
-  GraphController.defaults,
-  {
-    datasets: {
-      dagre: {
-        graph: {},
-        node: {},
-        edge: {},
-      },
-      animations: {
-        numbers: {
-          type: 'number',
-          properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
+  static readonly id = 'dagre';
+  static readonly defaults: any = /*#__PURE__*/ merge({}, [
+    GraphController.defaults,
+    {
+      datasets: {
+        dagre: {
+          graph: {},
+          node: {},
+          edge: {},
+        },
+        animations: {
+          numbers: {
+            type: 'number',
+            properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
+          },
         },
       },
+      // scales: {
+      //   x: {
+      //     min: -1,
+      //     max: 1,
+      //   },
+      //   y: {
+      //     min: -1,
+      //     max: 1,
+      //   },
+      // },
     },
-    // scales: {
-    //   x: {
-    //     min: -1,
-    //     max: 1,
-    //   },
-    //   y: {
-    //     min: -1,
-    //     max: 1,
-    //   },
-    // },
-  },
-]);
+  ]);
+}
 
 export class DagreGraphChart extends Chart {
   constructor(item, config) {

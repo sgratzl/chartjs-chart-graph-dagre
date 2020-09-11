@@ -1,4 +1,4 @@
-import matchChart from '../__tests__/matchChart';
+import createChart from '../__tests__/createChart';
 import { DagreGraphController } from './DagreGraphController';
 import data from './__tests__/data';
 
@@ -7,7 +7,7 @@ describe('dagre', () => {
     DagreGraphController.register();
   });
   test('default', () => {
-    return matchChart({
+    return createChart({
       type: DagreGraphController.id,
       data: {
         labels: data.nodes.map((d) => d.id),
@@ -39,6 +39,6 @@ describe('dagre', () => {
           display: false,
         },
       },
-    });
+    }).toMatchImageSnapshot();
   });
 });

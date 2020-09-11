@@ -11,7 +11,10 @@ npm-debug.log*
 /.pnp.js
 
 # Build files
+/.tmp
 /build
 
 *.tgz
-/.vscode
+/.vscode/extensions.json
+/docs
+__diff_output__

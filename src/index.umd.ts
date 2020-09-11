@@ -1,6 +1,6 @@
 export * from '.';
 
-import { registry } from '@sgratzl/chartjs-esm-facade';
+import { registry } from 'chart.js';
 import { DagreGraphController } from './controllers';
 
 registry.addControllers(DagreGraphController);

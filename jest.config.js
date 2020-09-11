@@ -1,4 +1,6 @@
+/* eslint-env node */
+
 module.exports = {
-  testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  transformIgnorePatterns: [],
+  preset: 'ts-jest',
+  testRegex: '((\\.|/)(test|spec))\\.[jt]sx?$',
 };
