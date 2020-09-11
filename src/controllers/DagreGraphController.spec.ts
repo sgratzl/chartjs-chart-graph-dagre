@@ -10,43 +10,51 @@ describe('dagre', () => {
     registry.addElements(EdgeLine, Point);
     registry.addScales(LinearScale);
   });
-  test('default', () => {
-    return createChart<
+  test('default', async () => {
+    const chart = createChart<
       { id: string },
       string,
       IDagreGraphChartControllerConfiguration<{ id: string }, { source: string; target: string }, string>
-    >({
-      type: DagreGraphController.id,
-      data: {
-        labels: data.nodes.map((d) => d.id),
-        datasets: [
-          {
-            dagre: {
-              graph: {
-                rankdir: 'BT',
+    >(
+      {
+        type: DagreGraphController.id,
+        data: {
+          labels: data.nodes.map((d) => d.id),
+          datasets: [
+            {
+              dagre: {
+                graph: {
+                  rankdir: 'BT',
+                },
               },
+              pointBackgroundColor: 'steelblue',
+              pointRadius: 5,
+              data: data.nodes,
+              edges: data.links,
             },
-            pointBackgroundColor: 'steelblue',
-            pointRadius: 5,
-            data: data.nodes,
-            edges: data.links,
+          ],
+        },
+        options: {
+          elements: {
+            point: {
+              radius: 10,
+              hoverRadius: 12,
+            },
+            line: {
+              borderColor: 'black',
+            },
           },
-        ],
-      },
-      options: {
-        elements: {
-          point: {
-            radius: 10,
-            hoverRadius: 12,
-          },
-          line: {
-            borderColor: 'black',
+          legend: {
+            display: false,
           },
         },
-        legend: {
-          display: false,
-        },
       },
-    }).toMatchImageSnapshot();
+      300,
+      300
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    return chart.toMatchImageSnapshot();
   });
 });
