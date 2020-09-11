@@ -1,11 +1,19 @@
-import { Chart } from 'chart.js';
+import { Chart, ChartItem, IChartConfiguration, IChartDataset, LinearScale, Point } from 'chart.js';
 import { merge } from '../../chartjs-helpers/core';
-import { GraphController, EdgeLine } from 'chartjs-chart-graph';
+import {
+  GraphController,
+  EdgeLine,
+  IGraphChartControllerDatasetOptions,
+  IGraphDataPoint,
+  IGraphEdgeDataPoint,
+} from 'chartjs-chart-graph';
 import Graph from 'graphlib/lib/graph';
 import layout from 'dagre/lib/layout';
 import patchController from './patchController';
 
 export class DagreGraphController extends GraphController {
+  declare _config: IDagreOptions;
+
   resyncLayout() {
     this.doLayout();
 
@@ -36,7 +44,7 @@ export class DagreGraphController extends GraphController {
       );
     });
 
-    layout(g, options);
+    layout(g as any, options);
 
     g.nodes().forEach((n, i) => {
       const attrs = g.node(n);
@@ -82,9 +90,39 @@ export class DagreGraphController extends GraphController {
   ]);
 }
 
-export class DagreGraphChart extends Chart {
-  constructor(item, config) {
-    super(item, patchController(config, DagreGraphController, EdgeLine));
+export interface IDagreOptions {
+  dagre:
+    | {
+        graph: any;
+        node: any;
+        edge: any;
+      }
+    | any;
+}
+
+export interface IDagreGraphChartControllerDatasetOptions extends IGraphChartControllerDatasetOptions, IDagreOptions {}
+
+export type IDagreGraphChartControllerDataset<T = IGraphDataPoint, E = IGraphEdgeDataPoint> = IChartDataset<
+  T,
+  IDagreGraphChartControllerDatasetOptions
+> & {
+  edges?: E[];
+};
+
+export type IDagreGraphChartControllerConfiguration<
+  T = IGraphDataPoint,
+  E = IGraphEdgeDataPoint,
+  L = string
+> = IChartConfiguration<'dagre', T, L, IDagreGraphChartControllerDataset<T, E>>;
+
+export class DagreGraphChart<T = IGraphDataPoint, E = IGraphEdgeDataPoint, L = string> extends Chart<
+  T,
+  L,
+  IDagreGraphChartControllerConfiguration<T, E, L>
+> {
+  static readonly id = DagreGraphController.id;
+
+  constructor(item: ChartItem, config: Omit<IDagreGraphChartControllerConfiguration<T, E, L>, 'type'>) {
+    super(item, patchController('dagre', config, DagreGraphController, [EdgeLine, Point], LinearScale));
   }
 }
-DagreGraphChart.id = DagreGraphController.id;

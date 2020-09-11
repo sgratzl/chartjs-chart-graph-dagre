@@ -35,6 +35,7 @@ export default (options) => {
     banner,
     globals: {
       'chart.js': 'Chart',
+      'chartjs-chart-graph': 'ChartGraphs',
     },
   };
 

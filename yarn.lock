@@ -1053,6 +1053,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dagre@npm:^0.7.44":
+  version: 0.7.44
+  resolution: "@types/dagre@npm:0.7.44"
+  checksum: ee5a5017b188844cb83b5cf7264c3263fe449887de254a8bc1da976e32ca04120ab6e6aeb65083a15bf50ff7cc386c757420734ea21123131400d6d159526862
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.38.0":
   version: 1.39.3
   resolution: "@types/emscripten@npm:1.39.3"
@@ -1080,6 +1087,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 5e2ec610a96de2a7b13ee1e071a31a225b68df07880f80f1112a3540299288d943c69c0f1114a60480aa137d424333392c11732969f14b964c1c419fae48a6f0
+  languageName: node
+  linkType: hard
+
+"@types/graphlib@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "@types/graphlib@npm:2.1.7"
+  checksum: 3c4e4fce249d610eb0c371a9511b96ec038fdd2a5a319e311316452763d4e750428146569d4bbf52fd510b1ab01124422be435e9fa1878ab7b561c8829048e03
   languageName: node
   linkType: hard
 
@@ -2319,6 +2333,8 @@ __metadata:
     "@rollup/plugin-node-resolve": ^9.0.0
     "@rollup/plugin-replace": ^2.3.3
     "@rollup/plugin-typescript": ^5.0.2
+    "@types/dagre": ^0.7.44
+    "@types/graphlib": ^2.1.7
     "@types/jest": ^26.0.12
     "@types/jest-image-snapshot": ^3.1.0
     "@types/node": ^14.6.2

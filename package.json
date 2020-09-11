@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/sgratzl/chartjs-chart-graph-dagre.git"
   },
-  "global": "ChartGraphs",
+  "global": "ChartGraphsDagre",
   "module": "build/index.esm.js",
   "main": "build/index.js",
   "unpkg": "build/index.umd.min.js",
@@ -38,6 +38,8 @@
     "chartjs-chart-graph": "^3.0.0-beta"
   },
   "dependencies": {
+    "@types/dagre": "^0.7.44",
+    "@types/graphlib": "^2.1.7",
     "dagre": "^0.8.5",
     "graphlib": "^2.1.8"
   },

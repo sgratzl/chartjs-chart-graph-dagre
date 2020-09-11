@@ -1,13 +1,21 @@
 import createChart from '../__tests__/createChart';
-import { DagreGraphController } from './DagreGraphController';
+import { DagreGraphController, IDagreGraphChartControllerConfiguration } from './DagreGraphController';
+import { registry, Point, LinearScale } from 'chart.js';
 import data from './__tests__/data';
+import { EdgeLine } from 'chartjs-chart-graph';
 
 describe('dagre', () => {
   beforeAll(() => {
-    DagreGraphController.register();
+    registry.addControllers(DagreGraphController);
+    registry.addElements(EdgeLine, Point);
+    registry.addScales(LinearScale);
   });
   test('default', () => {
-    return createChart({
+    return createChart<
+      { id: string },
+      string,
+      IDagreGraphChartControllerConfiguration<{ id: string }, { source: string; target: string }, string>
+    >({
       type: DagreGraphController.id,
       data: {
         labels: data.nodes.map((d) => d.id),
