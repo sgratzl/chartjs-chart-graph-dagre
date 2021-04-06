@@ -34,13 +34,13 @@ export class DagreGraphController extends GraphController {
     const nodes = meta._parsed as ITreeNode[];
     const edges = meta._parsedEdges;
     nodes.forEach((_, i) => {
-      g.setNode(i.toString(), typeof options.node === 'function' ? options.node(i) : Object.assign({}, options.node));
+      g.setNode(i.toString(), typeof options.node === 'function' ? options.node(i) : { ...options.node });
     });
     edges.forEach((edge) => {
       g.setEdge(
         edge.source.toString(),
         edge.target.toString(),
-        typeof options.edge === 'function' ? options.edge(edge.source, edge.target) : Object.assign({}, options.edge)
+        typeof options.edge === 'function' ? options.edge(edge.source, edge.target) : { ...options.edge }
       );
     });
 
@@ -61,7 +61,7 @@ export class DagreGraphController extends GraphController {
 
   static readonly id = 'dagre';
 
-  static readonly defaults: any = /*#__PURE__*/ merge({}, [
+  static readonly defaults: any = /* #__PURE__ */ merge({}, [
     GraphController.defaults,
     {
       animations: {
@@ -91,8 +91,10 @@ export interface IDagreOptions {
     | any;
 }
 
-export interface IDagreGraphChartControllerDatasetOptions extends Omit<IGraphChartControllerDatasetOptions, 'edges'>, IDagreOptions {
-  edges: {source: string| number, target: string|number}[];
+export interface IDagreGraphChartControllerDatasetOptions
+  extends Omit<IGraphChartControllerDatasetOptions, 'edges'>,
+    IDagreOptions {
+  edges: { source: string | number; target: string | number }[];
 }
 
 declare module 'chart.js' {
@@ -109,8 +111,8 @@ declare module 'chart.js' {
 
 export class DagreGraphChart<DATA extends unknown[] = IGraphDataPoint[], LABEL = string> extends Chart<
   'dagre',
-   DATA,
-   LABEL
+  DATA,
+  LABEL
 > {
   static readonly id = DagreGraphController.id;
 

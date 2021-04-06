@@ -1,8 +1,8 @@
+import { registry, LinearScale, PointElement } from 'chart.js';
+import { EdgeLine } from 'chartjs-chart-graph';
 import createChart from '../__tests__/createChart';
 import { DagreGraphController } from './DagreGraphController';
-import { registry, LinearScale, PointElement } from 'chart.js';
 import data from './__tests__/data';
-import { EdgeLine } from 'chartjs-chart-graph';
 
 describe('dagre', () => {
   beforeAll(() => {
