@@ -9,12 +9,12 @@ Adds another graph controller `dagre` to chart.js based on [chartjs-chart-graph]
 ## Install
 
 ```bash
-npm install --save chart.js@next @sgratzl/chartjs-esm-facade@next chartjs-chart-graph@next chartjs-chart-graph-dagre
+npm install --save chart.js chartjs-chart-graph chartjs-chart-graph-dagre
 ```
 
 ## Usage
 
-see [Samples](https://github.com/sgratzl/chartjs-chart-graph-dagre/tree/master/samples) on Github
+see [Samples](https://github.com/sgratzl/chartjs-chart-graph-dagre/tree/main/samples) on Github
 
 ## Options
 
@@ -75,8 +75,8 @@ new DagreGraphChart(ctx, {
 ```sh
 npm i -g yarn
 yarn set version 2
-yarn
-yarn pnpify --sdk
+yarn install
+yarn pnpify --sdk vscode
 ```
 
 ### Building

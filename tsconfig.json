@@ -20,7 +20,6 @@
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "rootDir": "./src",
     "baseUrl": "./",
     "noEmit": true,

@@ -1,23 +1,19 @@
 import createChart from '../__tests__/createChart';
-import { DagreGraphController, IDagreGraphChartControllerConfiguration } from './DagreGraphController';
-import { registry, Point, LinearScale } from 'chart.js';
+import { DagreGraphController } from './DagreGraphController';
+import { registry, LinearScale, PointElement } from 'chart.js';
 import data from './__tests__/data';
 import { EdgeLine } from 'chartjs-chart-graph';
 
 describe('dagre', () => {
   beforeAll(() => {
     registry.addControllers(DagreGraphController);
-    registry.addElements(EdgeLine, Point);
+    registry.addElements(EdgeLine, PointElement);
     registry.addScales(LinearScale);
   });
   test('default', async () => {
-    const chart = createChart<
-      { id: string },
-      string,
-      IDagreGraphChartControllerConfiguration<{ id: string }, { source: string; target: string }, string>
-    >(
+    const chart = createChart(
       {
-        type: DagreGraphController.id,
+        type: DagreGraphController.id as 'dagre',
         data: {
           labels: data.nodes.map((d) => d.id),
           datasets: [
@@ -43,9 +39,6 @@ describe('dagre', () => {
             line: {
               borderColor: 'black',
             },
-          },
-          legend: {
-            display: false,
           },
         },
       },

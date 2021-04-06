@@ -1,11 +1,11 @@
-import { Chart, ChartItem, IChartConfiguration, IChartDataset, LinearScale, Point } from 'chart.js';
-import { merge } from '../../chartjs-helpers/core';
+import { Chart, ChartItem, ChartConfiguration, LinearScale, PointElement } from 'chart.js';
+import { merge } from 'chart.js/helpers';
 import {
   GraphController,
   EdgeLine,
   IGraphChartControllerDatasetOptions,
   IGraphDataPoint,
-  IGraphEdgeDataPoint,
+  ITreeNode,
 } from 'chartjs-chart-graph';
 import Graph from 'graphlib/lib/graph';
 import layout from 'dagre/lib/layout';
@@ -25,13 +25,13 @@ export class DagreGraphController extends GraphController {
   }
 
   doLayout() {
-    const options = this._config.dagre;
+    const options = ((this as any).options as IDagreOptions).dagre;
 
     const g = new Graph();
     g.setGraph(options.graph);
 
     const meta = this._cachedMeta;
-    const nodes = meta._parsed;
+    const nodes = meta._parsed as ITreeNode[];
     const edges = meta._parsedEdges;
     nodes.forEach((_, i) => {
       g.setNode(i.toString(), typeof options.node === 'function' ? options.node(i) : Object.assign({}, options.node));
@@ -60,34 +60,25 @@ export class DagreGraphController extends GraphController {
   }
 
   static readonly id = 'dagre';
+
   static readonly defaults: any = /*#__PURE__*/ merge({}, [
     GraphController.defaults,
     {
-      datasets: {
-        dagre: {
-          graph: {},
-          node: {},
-          edge: {},
-        },
-        animations: {
-          numbers: {
-            type: 'number',
-            properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
-          },
+      animations: {
+        numbers: {
+          type: 'number',
+          properties: ['x', 'y', 'angle', 'radius', 'borderWidth'],
         },
       },
-      // scales: {
-      //   x: {
-      //     min: -1,
-      //     max: 1,
-      //   },
-      //   y: {
-      //     min: -1,
-      //     max: 1,
-      //   },
-      // },
+      dagre: {
+        graph: {},
+        node: {},
+        edge: {},
+      },
     },
   ]);
+
+  static readonly overrides: any = /* #__PURE__ */ GraphController.overrides;
 }
 
 export interface IDagreOptions {
@@ -100,29 +91,30 @@ export interface IDagreOptions {
     | any;
 }
 
-export interface IDagreGraphChartControllerDatasetOptions extends IGraphChartControllerDatasetOptions, IDagreOptions {}
+export interface IDagreGraphChartControllerDatasetOptions extends Omit<IGraphChartControllerDatasetOptions, 'edges'>, IDagreOptions {
+  edges: {source: string| number, target: string|number}[];
+}
 
-export type IDagreGraphChartControllerDataset<T = IGraphDataPoint, E = IGraphEdgeDataPoint> = IChartDataset<
-  T,
-  IDagreGraphChartControllerDatasetOptions
-> & {
-  edges?: E[];
-};
+declare module 'chart.js' {
+  export interface ChartTypeRegistry {
+    dagre: {
+      chartOptions: CoreChartOptions<'dagre'>;
+      datasetOptions: IDagreGraphChartControllerDatasetOptions;
+      defaultDataPoint: IGraphDataPoint;
+      parsedDataType: ITreeNode;
+      scales: keyof CartesianScaleTypeRegistry;
+    };
+  }
+}
 
-export type IDagreGraphChartControllerConfiguration<
-  T = IGraphDataPoint,
-  E = IGraphEdgeDataPoint,
-  L = string
-> = IChartConfiguration<'dagre', T, L, IDagreGraphChartControllerDataset<T, E>>;
-
-export class DagreGraphChart<T = IGraphDataPoint, E = IGraphEdgeDataPoint, L = string> extends Chart<
-  T,
-  L,
-  IDagreGraphChartControllerConfiguration<T, E, L>
+export class DagreGraphChart<DATA extends unknown[] = IGraphDataPoint[], LABEL = string> extends Chart<
+  'dagre',
+   DATA,
+   LABEL
 > {
   static readonly id = DagreGraphController.id;
 
-  constructor(item: ChartItem, config: Omit<IDagreGraphChartControllerConfiguration<T, E, L>, 'type'>) {
-    super(item, patchController('dagre', config, DagreGraphController, [EdgeLine, Point], LinearScale));
+  constructor(item: ChartItem, config: Omit<ChartConfiguration<'dagre', DATA, LABEL>, 'type'>) {
+    super(item, patchController('dagre', config, GraphController, [EdgeLine, PointElement], LinearScale));
   }
 }
