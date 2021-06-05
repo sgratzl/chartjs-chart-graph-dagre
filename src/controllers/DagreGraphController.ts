@@ -14,17 +14,17 @@ import patchController from './patchController';
 export class DagreGraphController extends GraphController {
   declare _config: IDagreOptions;
 
-  resyncLayout() {
+  resyncLayout(): void {
     this.doLayout();
 
     super.resyncLayout();
   }
 
-  reLayout() {
+  reLayout(): void {
     this.doLayout();
   }
 
-  doLayout() {
+  doLayout(): void {
     const options = ((this as any).options as IDagreOptions).dagre;
 
     const g = new Graph();
