@@ -1,4 +1,4 @@
-export default {
+const data = {
   nodes: [
     {
       id: 'e1049793-0c77-4f32-b95d-8067613798d9',
@@ -39,3 +39,5 @@ export default {
     },
   ],
 };
+
+export default data;
