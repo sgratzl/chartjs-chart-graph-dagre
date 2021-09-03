@@ -85,9 +85,8 @@ new DagreGraphChart(ctx, {
 
 ```sh
 npm i -g yarn
-yarn set version 2
 yarn install
-yarn pnpify --sdk vscode
+yarn sdks vscode
 ```
 
 ### Building
