@@ -6,6 +6,7 @@ import {
   IGraphChartControllerDatasetOptions,
   IGraphDataPoint,
   ITreeNode,
+  IExtendedChartMeta,
 } from 'chartjs-chart-graph';
 import Graph from 'graphlib/lib/graph';
 import layout from 'dagre/lib/layout';
@@ -32,7 +33,7 @@ export class DagreGraphController extends GraphController {
 
     const meta = this._cachedMeta;
     const nodes = meta._parsed as ITreeNode[];
-    const edges = meta._parsedEdges;
+    const edges = (meta as unknown as IExtendedChartMeta)._parsedEdges;
     nodes.forEach((_, i) => {
       g.setNode(i.toString(), typeof options.node === 'function' ? options.node(i) : { ...options.node });
     });
@@ -103,6 +104,7 @@ declare module 'chart.js' {
       chartOptions: CoreChartOptions<'dagre'>;
       datasetOptions: IDagreGraphChartControllerDatasetOptions;
       defaultDataPoint: IGraphDataPoint;
+      metaExtensions: Record<string, never>;
       parsedDataType: ITreeNode;
       scales: keyof CartesianScaleTypeRegistry;
     };
