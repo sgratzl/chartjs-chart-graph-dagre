@@ -1,7 +1,7 @@
 {
   "name": "chartjs-chart-graph-dagre",
   "description": "Chart.js graph chart extension using the dagre layout",
-  "version": "3.2.0",
+  "version": "3.9.0",
   "author": {
     "name": "Samuel Gratzl",
     "email": "sam@sgratzl.com",
