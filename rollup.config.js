@@ -47,6 +47,7 @@ export default function Config(options) {
     globals: {
       'chart.js': 'Chart',
       'chart.js/helpers': 'Chart.helpers',
+      'chartjs-chart-graph': 'ChartGraphs',
     },
   };
 

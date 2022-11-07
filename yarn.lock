@@ -3336,7 +3336,7 @@ __metadata:
     canvas: ^2.10.2
     canvas-5-polyfill: ^0.1.5
     chart.js: ^3.9.1
-    chartjs-chart-graph: ^3.10.0
+    chartjs-chart-graph: ^4.0.0-alpha
     dagre: ^0.8.5
     eslint: ^8.27.0
     eslint-config-airbnb-typescript: ^17.0.0
@@ -3364,13 +3364,13 @@ __metadata:
     typescript: ^4.8.4
   peerDependencies:
     chart.js: ^3.9.1
-    chartjs-chart-graph: ^3.10.0
+    chartjs-chart-graph: ^4.0.0-alpha
   languageName: unknown
   linkType: soft
 
-"chartjs-chart-graph@npm:^3.10.0":
-  version: 3.10.0
-  resolution: "chartjs-chart-graph@npm:3.10.0"
+"chartjs-chart-graph@npm:^4.0.0-alpha":
+  version: 4.0.0-alpha
+  resolution: "chartjs-chart-graph@npm:4.0.0-alpha"
   dependencies:
     "@types/d3-force": ^3.0.3
     "@types/d3-hierarchy": ^3.1.0
@@ -3381,7 +3381,7 @@ __metadata:
     d3-timer: ^3.0.1
   peerDependencies:
     chart.js: ^3.9.1
-  checksum: a3dc78ec83b1479248d4b1714d4d3013ff67cd3ea7ce40878e7334c9fd3a0e8cd17a3f760377b32451124782372aa3e86264dabd313871ede06e7631034fcf3e
+  checksum: 62639ad87a08ee726cf8a397bb50a8160a48d1156afc19ff971dd22610c52fdc2ebfbdeb49a75a0ff21902dcc573658942aadfb66c2562164be353525e98f3c7
   languageName: node
   linkType: hard
 
